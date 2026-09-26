@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employee Token Details</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Employee Token Details</h2>
+
+    <a href="{{ url_for('view') }}">
+        Back
+    </a>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="details-card">
+
+        <h1>
+            {{ employee["employee_name"] }}
+        </h1>
+
+        <p>
+            Employee ID:
+            <strong>
+                {{ employee["employee_id"] }}
+            </strong>
+        </p>
+
+        <p>
+            Department:
+            <strong>
+                {{ employee["department"] }}
+            </strong>
+        </p>
+
+    </div>
+
+
+    <div class="card-grid">
+
+
+        <div class="token-card lunch">
+
+            <div class="icon">
+                🍱
+            </div>
+
+            <h2>
+                Lunch
+            </h2>
+
+            <span>
+                {{ employee["lunch_count"] }}
+            </span>
+
+        </div>
+
+
+        <div class="token-card tiffen">
+
+            <div class="icon">
+                🍛
+            </div>
+
+            <h2>
+                Tiffen
+            </h2>
+
+            <span>
+                {{ employee["tiffen_count"] }}
+            </span>
+
+        </div>
+
+
+        <div class="token-card tea">
+
+            <div class="icon">
+                ☕
+            </div>
+
+            <h2>
+                Tea
+            </h2>
+
+            <span>
+                {{ employee["tea_count"] }}
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="total-card">
+
+        <h2>
+            Total Tokens
+        </h2>
+
+        <div>
+            {{ total }}
+        </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+        Token History
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Token</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for record in records %}
+
+                <tr>
+
+                    <td>
+                        {{ record["token_date"] }}
+                    </td>
+
+                    <td>
+                        {{ record["token_time"] }}
+                    </td>
+
+                    <td>
+
+                        {% if record["token_type"] == "lunch" %}
+
+                            🍱 Lunch
+
+                        {% elif record["token_type"] == "tiffen" %}
+
+                            🍛 Tiffen
+
+                        {% else %}
+
+                            ☕ Tea
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <a href="{{ url_for('view') }}"
+       class="btn back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+</body>
+</html>

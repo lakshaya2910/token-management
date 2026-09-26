@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employee Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Employee Management</h2>
+
+    <a href="{{ url_for('admin_dashboard') }}">
+        Dashboard
+    </a>
+
+</div>
+
+
+<div class="container">
+
+    <h1 class="page-title">
+        👥 Employee Management
+    </h1>
+
+
+    <div class="management-grid">
+
+
+        <a href="{{ url_for('add_employee') }}"
+           class="management-card add">
+
+            <span>➕</span>
+
+            <h2>New Employee</h2>
+
+            <p>Add New Employee</p>
+
+        </a>
+
+
+        <a href="{{ url_for('search_employee') }}"
+           class="management-card update">
+
+            <span>✏️</span>
+
+            <h2>Update Employee</h2>
+
+            <p>Update Employee Details</p>
+
+        </a>
+
+
+        <a href="{{ url_for('search_employee') }}"
+           class="management-card search">
+
+            <span>🔍</span>
+
+            <h2>Search Employee</h2>
+
+            <p>Find Employee</p>
+
+        </a>
+
+
+        <a href="{{ url_for('search_employee') }}"
+           class="management-card delete">
+
+            <span>🗑️</span>
+
+            <h2>Delete Employee</h2>
+
+            <p>Delete Employee</p>
+
+        </a>
+
+
+    </div>
+
+
+    <a href="{{ url_for('admin_dashboard') }}"
+       class="btn back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+</body>
+</html>

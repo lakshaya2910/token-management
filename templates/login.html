@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>HBL HR Token System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="login-body">
+
+<div class="login-container">
+
+    <div class="login-header">
+
+        <div class="logo-circle">
+            HBL
+        </div>
+
+        <h1>HR Token Management</h1>
+
+        <p>Canteen Token Management System</p>
+
+        <div id="liveClock"
+             class="live-clock">
+        </div>
+
+    </div>
+
+
+    {% with messages =
+       get_flashed_messages(with_categories=true) %}
+
+        {% for category, message in messages %}
+
+            <div class="alert {{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <div class="login-box">
+
+        <div class="login-icon">
+            👤
+        </div>
+
+        <h2>Employee Login</h2>
+
+        <form method="POST">
+
+            <input type="hidden"
+                   name="login_type"
+                   value="employee">
+
+            <label>Employee ID</label>
+
+            <input type="text"
+                   name="employee_id"
+                   placeholder="Enter Employee ID"
+                   required>
+
+
+            <label>Employee Name</label>
+
+            <input type="text"
+                   name="employee_name"
+                   placeholder="Enter Employee Name"
+                   required>
+
+
+            <button class="btn employee-btn">
+                Employee Login
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="login-box">
+
+        <div class="login-icon">
+            🔐
+        </div>
+
+        <h2>Admin Login</h2>
+
+        <form method="POST">
+
+            <input type="hidden"
+                   name="login_type"
+                   value="admin">
+
+
+            <label>Username</label>
+
+            <input type="text"
+                   name="username"
+                   placeholder="Admin Username"
+                   required>
+
+
+            <label>Password</label>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Admin Password"
+                   required>
+
+
+            <button class="btn admin-btn">
+                Admin Login
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function updateClock() {
+
+    const now = new Date();
+
+    const date =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+    const time =
+        now.toLocaleTimeString(
+            "en-IN",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+    document.getElementById(
+        "liveClock"
+    ).innerHTML =
+        "📅 " + date + " &nbsp; ⏰ " + time;
+}
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
+
+</body>
+</html>

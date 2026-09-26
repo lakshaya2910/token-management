@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Today's Token Report</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Today's Token Report</h2>
+
+    <a href="{{ url_for('admin_dashboard') }}">
+        Dashboard
+    </a>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="report-header">
+
+        <h1>
+            📅 Today's Token Report
+        </h1>
+
+        <p>
+            Date:
+            <strong>
+                {{ display_date }}
+            </strong>
+        </p>
+
+        <p id="reportClock"></p>
+
+    </div>
+
+
+    <h2 class="section-title">
+        Employee-wise Today's Summary
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee Name</th>
+
+                    <th>Department</th>
+
+                    <th>🍱 Lunch</th>
+
+                    <th>🍛 Tiffen</th>
+
+                    <th>☕ Tea</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for employee in summary %}
+
+                {% set lunch =
+                    employee["lunch_count"] or 0 %}
+
+                {% set tiffen =
+                    employee["tiffen_count"] or 0 %}
+
+                {% set tea =
+                    employee["tea_count"] or 0 %}
+
+
+                <tr>
+
+                    <td>
+                        {{ employee["employee_id"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["employee_name"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["department"] }}
+                    </td>
+
+                    <td class="lunch-text">
+                        {{ lunch }}
+                    </td>
+
+                    <td class="tiffen-text">
+                        {{ tiffen }}
+                    </td>
+
+                    <td class="tea-text">
+                        {{ tea }}
+                    </td>
+
+                    <td>
+                        {{ lunch + tiffen + tea }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <h2 class="section-title">
+        Today's Token History
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Time</th>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee Name</th>
+
+                    <th>Department</th>
+
+                    <th>Token</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for record in records %}
+
+                <tr>
+
+                    <td>
+                        {{ record["token_time"] }}
+                    </td>
+
+                    <td>
+                        {{ record["employee_id"] }}
+                    </td>
+
+                    <td>
+                        {{ record["employee_name"] }}
+                    </td>
+
+                    <td>
+                        {{ record["department"] }}
+                    </td>
+
+                    <td>
+
+                        {% if record["token_type"] == "lunch" %}
+
+                            🍱 Lunch
+
+                        {% elif record["token_type"] == "tiffen" %}
+
+                            🍛 Tiffen
+
+                        {% else %}
+
+                            ☕ Tea
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% if not records %}
+
+        <div class="no-data">
+
+            No tokens recorded today.
+
+        </div>
+
+    {% endif %}
+
+
+    <a href="{{ url_for('admin_dashboard') }}"
+       class="btn back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+
+<script>
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById(
+        "reportClock"
+    ).innerHTML =
+        "⏰ Current Time: " +
+        now.toLocaleTimeString("en-IN");
+
+}
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
+
+</body>
+</html>

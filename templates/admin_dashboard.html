@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar admin-nav">
+
+    <h2>HBL HR - Admin Panel</h2>
+
+    <div class="nav-right">
+
+        <span id="adminClock"></span>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="admin-welcome">
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <p>
+            Employee & Token Management
+        </p>
+
+    </div>
+
+
+    <div class="admin-grid">
+
+
+        <a href="{{ url_for(
+            'employee_management'
+        ) }}"
+           class="admin-card blue">
+
+            <div class="admin-icon">
+                👥
+            </div>
+
+            <h2>
+                Employee Management
+            </h2>
+
+            <p>
+                Add, Update, Search and Delete
+                Employees
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for('view') }}"
+           class="admin-card green">
+
+            <div class="admin-icon">
+                👤
+            </div>
+
+            <h2>
+                Employee Details
+            </h2>
+
+            <p>
+                View employee information
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for(
+            'today_report'
+        ) }}"
+           class="admin-card orange">
+
+            <div class="admin-icon">
+                📅
+            </div>
+
+            <h2>
+                Today's Token
+            </h2>
+
+            <p>
+                View today's token details
+            </p>
+
+        </a>
+
+
+        <a href="{{ url_for(
+            'monthly_report'
+        ) }}"
+           class="admin-card purple">
+
+            <div class="admin-icon">
+                📊
+            </div>
+
+            <h2>
+                Monthly Report
+            </h2>
+
+            <p>
+                View monthly token report
+            </p>
+
+        </a>
+
+
+    </div>
+
+
+    <div class="back-area">
+
+        <a href="{{ url_for('logout') }}"
+           class="btn back-btn">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById(
+        "adminClock"
+    ).innerHTML =
+        "📅 " +
+        now.toLocaleDateString("en-IN") +
+        " | ⏰ " +
+        now.toLocaleTimeString("en-IN");
+
+}
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Search Employee</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Search Employee</h2>
+
+    <a href="{{ url_for('employee_management') }}">
+        Back
+    </a>
+
+</div>
+
+
+<div class="container">
+
+    <h1 class="page-title">
+        🔍 Search Employee
+    </h1>
+
+
+    <form method="POST"
+          class="search-form">
+
+        <input type="text"
+               name="search"
+               placeholder="Employee ID / Name / Department"
+               required>
+
+        <button class="btn search-btn">
+            Search
+        </button>
+
+    </form>
+
+
+    {% if employees %}
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Lunch</th>
+                    <th>Tiffen</th>
+                    <th>Tea</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for employee in employees %}
+
+                <tr>
+
+                    <td>
+                        {{ employee["employee_id"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["employee_name"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["department"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["lunch_count"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["tiffen_count"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["tea_count"] }}
+                    </td>
+
+                    <td>
+
+                        <a class="small-btn edit"
+                           href="{{ url_for(
+                               'update_employee',
+                               id=employee['id']
+                           ) }}">
+
+                            Edit
+
+                        </a>
+
+
+                        <a class="small-btn delete-btn"
+                           href="{{ url_for(
+                               'delete_employee',
+                               id=employee['id']
+                           ) }}"
+                           onclick="return confirm(
+                               'Are you sure you want to delete this employee?'
+                           )">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <div class="no-data">
+
+            No employees found.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

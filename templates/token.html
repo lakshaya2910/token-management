@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        {{ token_type|capitalize }} Token
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>HBL HR Token System</h2>
+
+    <a href="{{ url_for('employee_dashboard') }}">
+        Dashboard
+    </a>
+
+</div>
+
+
+<div class="token-page">
+
+    <div class="big-token-card">
+
+
+        {% if token_type == "lunch" %}
+
+            <div class="big-icon">
+                🍱
+            </div>
+
+        {% elif token_type == "tiffen" %}
+
+            <div class="big-icon">
+                🍛
+            </div>
+
+        {% else %}
+
+            <div class="big-icon">
+                ☕
+            </div>
+
+        {% endif %}
+
+
+        <h1>
+            {{ token_type|capitalize }} Token
+        </h1>
+
+
+        <p>
+            Employee:
+            <strong>
+                {{ employee["employee_name"] }}
+            </strong>
+        </p>
+
+
+        <div class="count-box">
+
+            {% if token_type == "lunch" %}
+
+                {{ employee["lunch_count"] }}
+
+            {% elif token_type == "tiffen" %}
+
+                {{ employee["tiffen_count"] }}
+
+            {% else %}
+
+                {{ employee["tea_count"] }}
+
+            {% endif %}
+
+        </div>
+
+
+        <form method="POST"
+              action="{{ url_for(
+                'add_token',
+                token_type=token_type
+              ) }}">
+
+            <button class="token-add-btn">
+
+                + Add
+                {{ token_type|capitalize }}
+                Token
+
+            </button>
+
+        </form>
+
+
+        <div class="current-time"
+             id="tokenClock">
+        </div>
+
+
+        <a href="{{ url_for(
+            'employee_dashboard'
+        ) }}"
+           class="btn back-btn">
+
+            Back
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function clock() {
+
+    const now = new Date();
+
+    document.getElementById(
+        "tokenClock"
+    ).innerHTML =
+        "📅 " +
+        now.toLocaleDateString("en-IN") +
+        " &nbsp; ⏰ " +
+        now.toLocaleTimeString("en-IN");
+
+}
+
+clock();
+
+setInterval(clock, 1000);
+
+</script>
+
+</body>
+</html>

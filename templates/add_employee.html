@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Employee</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>New Employee</h2>
+
+    <a href="{{ url_for('employee_management') }}">
+        Back
+    </a>
+
+</div>
+
+
+<div class="form-container">
+
+    <h1>
+        ➕ Add New Employee
+    </h1>
+
+
+    <form method="POST">
+
+        <label>
+            Employee ID
+        </label>
+
+        <input type="text"
+               name="employee_id"
+               placeholder="Example: EMP001"
+               required>
+
+
+        <label>
+            Employee Name
+        </label>
+
+        <input type="text"
+               name="employee_name"
+               placeholder="Employee Name"
+               required>
+
+
+        <label>
+            Department
+        </label>
+
+        <input type="text"
+               name="department"
+               placeholder="Department">
+
+
+        <button class="btn save-btn">
+            Save Employee
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

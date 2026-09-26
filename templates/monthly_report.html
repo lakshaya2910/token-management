@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Monthly Token Report</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>Monthly Token Report</h2>
+
+    <a href="{{ url_for('admin_dashboard') }}">
+        Dashboard
+    </a>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="report-header">
+
+        <h1>
+            📊 Monthly Token Report
+        </h1>
+
+        <p>
+            {{ display_month }}
+        </p>
+
+    </div>
+
+
+    <form method="POST"
+          class="month-form">
+
+        <label>
+            Select Month
+        </label>
+
+        <input type="month"
+               name="month"
+               value="{{ selected_month }}"
+               required>
+
+        <button class="btn search-btn">
+
+            View Report
+
+        </button>
+
+    </form>
+
+
+    <h2 class="section-title">
+
+        Employee-wise Monthly Summary
+
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee Name</th>
+
+                    <th>Department</th>
+
+                    <th>🍱 Lunch</th>
+
+                    <th>🍛 Tiffen</th>
+
+                    <th>☕ Tea</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for employee in summary %}
+
+                {% set lunch =
+                    employee["lunch_count"] or 0 %}
+
+                {% set tiffen =
+                    employee["tiffen_count"] or 0 %}
+
+                {% set tea =
+                    employee["tea_count"] or 0 %}
+
+
+                <tr>
+
+                    <td>
+                        {{ employee["employee_id"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["employee_name"] }}
+                    </td>
+
+                    <td>
+                        {{ employee["department"] }}
+                    </td>
+
+                    <td class="lunch-text">
+                        {{ lunch }}
+                    </td>
+
+                    <td class="tiffen-text">
+                        {{ tiffen }}
+                    </td>
+
+                    <td class="tea-text">
+                        {{ tea }}
+                    </td>
+
+                    <td>
+                        {{ lunch + tiffen + tea }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <h2 class="section-title">
+
+        Detailed Token History
+
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Employee ID</th>
+
+                    <th>Employee Name</th>
+
+                    <th>Department</th>
+
+                    <th>Token</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for record in records %}
+
+                <tr>
+
+                    <td>
+                        {{ record["token_date"] }}
+                    </td>
+
+                    <td>
+                        {{ record["token_time"] }}
+                    </td>
+
+                    <td>
+                        {{ record["employee_id"] }}
+                    </td>
+
+                    <td>
+                        {{ record["employee_name"] }}
+                    </td>
+
+                    <td>
+                        {{ record["department"] }}
+                    </td>
+
+                    <td>
+
+                        {% if record["token_type"] == "lunch" %}
+
+                            🍱 Lunch
+
+                        {% elif record["token_type"] == "tiffen" %}
+
+                            🍛 Tiffen
+
+                        {% else %}
+
+                            ☕ Tea
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% if not records %}
+
+        <div class="no-data">
+
+            No token records found
+            for {{ display_month }}.
+
+        </div>
+
+    {% endif %}
+
+
+    <a href="{{ url_for('admin_dashboard') }}"
+       class="btn back-btn">
+
+        Back
+
+    </a>
+
+</div>
+
+</body>
+</html>
